@@ -16,7 +16,7 @@ vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP Hover" })
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 vim.keymap.set("n", "<leader>gf", function()
-  vim.lsp.buf.format({ async = true })
+	vim.lsp.buf.format({ async = true })
 end, { desc = "Format" })
 
 -- telescope
@@ -28,5 +28,8 @@ vim.keymap.set("n", "<leader>pp", "<CMD>Oil<CR>", { desc = "Open parent director
 
 -- tresitter-context
 vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context(vim.v.count1)
+	require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true })
+
+-- markdown-preview
+vim.keymap.set("n", "<C-m", "<CMD>MarkdownPreview<CR>", { desc = "Open markdown in browser" })
