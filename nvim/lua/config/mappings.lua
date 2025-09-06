@@ -1,5 +1,3 @@
-vim.keymap.set("n", "<leader>pp", vim.cmd.Ex)
-
 vim.keymap.set("n", "j", "jzz")
 vim.keymap.set("n", "k", "kzz")
 vim.keymap.set("n", "{", "{zz")
@@ -21,3 +19,6 @@ vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 -- telescope
 vim.keymap.set("n", "<leader>ff", require("telescope.builtin").find_files, {})
 vim.keymap.set("n", "<leader>fg", require("telescope.builtin").live_grep, {})
+
+-- oil
+vim.keymap.set("n", "<leader>pp", "<CMD>Oil<CR>", { desc = "Open parent directory" })
