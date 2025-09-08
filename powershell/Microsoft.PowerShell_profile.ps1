@@ -19,7 +19,7 @@ function ... { Set-Location ..\.. }
 function .... { Set-Location ..\..\.. }
 
 # Autostarts
-if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+if (Get-Command fastfetch.exe -ErrorAction SilentlyContinue) {
     fastfetch.exe
 }
 
