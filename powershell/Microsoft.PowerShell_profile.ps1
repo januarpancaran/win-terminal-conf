@@ -1,17 +1,14 @@
 # History
-Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
-Set-PSReadLineOption -MaximumHistoryCount 10000
-Set-PSReadLineOption -HistoryNoDuplicates:$true
-Set-PsReadLineOption -HistorySavePath "$env:USERPROFILE\.ps_history"
+if (Get-Module -ListAvailable PSReadLine) {
+    Set-PSReadLineOption -HistorySaveStyle SaveIncrementally
+    Set-PSReadLineOption -MaximumHistoryCount 10000
+    Set-PSReadLineOption -HistoryNoDuplicates:$true
+    Set-PSReadLineOption -HistorySavePath "$env:USERPROFILE\.ps_history"
+}
 
 # Keybinding
 Set-PSReadLineKeyHandler -Chord "Ctrl+p" -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Chord "Ctrl+n" -Function HistorySearchForward
-
-# Fastfetch
-if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
-  fastfetch
-}
 
 # Aliases
 Set-Alias vi "nvim"
@@ -22,5 +19,14 @@ function ... { Set-Location ..\.. }
 function .... { Set-Location ..\..\.. }
 
 # Autostarts
-Invoke-Expression (&starship init powershell)
-Invoke-Expression (& { zoxide init powershell | Out-String })
+if (Get-Command fastfetch -ErrorAction SilentlyContinue) {
+    fastfetch.exe
+}
+
+if (Get-Command starship.exe -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship.exe init powershell)
+}
+
+if (Get-Command zoxide.exe -ErrorAction SilentlyContinue) {
+    Invoke-Expression (& { zoxide.exe init powershell | Out-String })
+}
