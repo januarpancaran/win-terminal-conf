@@ -9,7 +9,15 @@ if (Get-Module -ListAvailable PSReadLine) {
 # Keybinding
 Set-PSReadLineKeyHandler -Chord "Ctrl+p" -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Chord "Ctrl+n" -Function HistorySearchForward
-Set-PSReadLineKeyHandler -Key "Ctrl+f" -Function AcceptSuggestion
+
+if ($PSVersionTable.PSEdition -eq "Core") {
+    try {
+        Set-PSReadLineKeyHandler -Key "Ctrl+f" -Function AcceptSuggestion
+    }
+    catch {
+        Write-Verbose "AcceptSuggestion not available in this PSReadLine version"
+    }
+}
 
 # Aliases
 Set-Alias vi "nvim"
