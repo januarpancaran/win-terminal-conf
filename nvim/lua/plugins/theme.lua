@@ -1,8 +1,8 @@
 return {
-  "catppuccin/nvim",
-  priority = 1000,
-  lazy = false,
-  config = function()
-    vim.cmd.colorscheme("catppuccin-mocha")
-  end,
+	"catppuccin/nvim",
+	priority = 1000,
+	lazy = false,
+	config = function()
+		vim.cmd.colorscheme("catppuccin-mocha")
+	end,
 }
