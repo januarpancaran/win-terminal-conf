@@ -84,6 +84,7 @@ export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env --shell zsh)"
 
 export PATH="$PATH:$HOME/go/bin"
+export PATH="$HOME/.bun/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
