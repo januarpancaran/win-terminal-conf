@@ -52,7 +52,7 @@ zstyle ':fzf-tab-complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab-complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Fastfetch
-if command -v fastfetch; then
+if command -v fastfetch &> /dev/null; then
 	fastfetch
 fi
 
