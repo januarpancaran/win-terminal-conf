@@ -59,6 +59,7 @@ packages=(
     ripgrep
     starship
     tmux
+    trash-cli
     tree
     unrar
     unzip
