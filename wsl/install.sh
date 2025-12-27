@@ -50,7 +50,6 @@ packages=(
     golang
     htop
     lsb-release
-    neovim
     nodejs
     npm
     php
@@ -75,6 +74,22 @@ install_packages() {
     
     log_info "Installing packages..."
     sudo apt install -y "${packages[@]}" || log_error "Failed to install packages"
+}
+
+setup_neovim() {
+    log_info "Installing Neovim Nightly (v0.11)..."
+    
+    # Remove existing installation if any
+    sudo rm -rf /opt/nvim-linux-x86_64
+    sudo rm -f /usr/local/bin/nvim
+
+    # Download and install
+    curl -LO https://github.com/neovim/neovim/releases/download/nightly/nvim-linux-x86_64.tar.gz
+    sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+    rm nvim-linux-x86_64.tar.gz
+
+    # Create symlink
+    sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
 }
 
 setup_docker() {
@@ -186,6 +201,7 @@ main() {
     
     enable_nonfree || return 1
     install_packages || return 1
+    setup_neovim || return 1
     setup_docker || return 1
     setup_bun || return 1
     copy_config_files || return 1
