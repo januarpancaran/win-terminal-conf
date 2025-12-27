@@ -79,6 +79,10 @@ eval "$(zoxide init zsh)"
 # Starship
 eval "$(starship init zsh)"
 
+# fnm
+export PATH="$HOME/.local/share/fnm:$PATH"
+eval "$(fnm env --shell zsh)"
+
 export PATH="$PATH:$HOME/go/bin"
 
 export PYENV_ROOT="$HOME/.pyenv"

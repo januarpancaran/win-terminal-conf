@@ -50,8 +50,6 @@ packages=(
     golang
     htop
     lsb-release
-    nodejs
-    npm
     php
     pyenv
     python3
@@ -90,6 +88,21 @@ setup_neovim() {
 
     # Create symlink
     sudo ln -s /opt/nvim-linux-x86_64/bin/nvim /usr/local/bin/nvim
+}
+
+setup_nodejs() {
+    log_info "Setting up Node.js (via fnm)..."
+    
+    # Install fnm
+    curl -fsSL https://fnm.vercel.app/install | bash
+    
+    # Load fnm for the current session
+    export PATH="$HOME/.local/share/fnm:$PATH"
+    eval "$(fnm env --shell bash)"
+    
+    # Install latest Node.js
+    log_info "Installing latest Node.js..."
+    fnm install --latest
 }
 
 setup_docker() {
@@ -202,6 +215,7 @@ main() {
     enable_nonfree || return 1
     install_packages || return 1
     setup_neovim || return 1
+    setup_nodejs || return 1
     setup_docker || return 1
     setup_bun || return 1
     copy_config_files || return 1
