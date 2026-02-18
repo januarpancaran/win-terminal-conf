@@ -207,89 +207,6 @@ function Get-PythonCommand {
     return $null
 }
 
-function Install-TrashCli {
-    param(
-        [Parameter(Mandatory = $true)]
-        [string]$Manager
-    )
-
-    Write-Host "Installing trash-cli..."
-    $errors = New-Object System.Collections.Generic.List[string]
-
-    if ($Manager -eq "scoop") {
-        foreach ($candidate in @("trash", "trash-cli")) {
-            try {
-                scoop install $candidate
-                if ($LASTEXITCODE -eq 0) {
-                    return
-                }
-                throw "scoop exited with code $LASTEXITCODE."
-            }
-            catch {
-                $errors.Add("scoop ($candidate): $($_.Exception.Message)")
-            }
-        }
-    }
-
-    if ($Manager -eq "choco") {
-        foreach ($candidate in @("trash-cli", "trash")) {
-            try {
-                choco install $candidate -y --no-progress
-                if ($LASTEXITCODE -eq 0) {
-                    return
-                }
-                throw "choco exited with code $LASTEXITCODE."
-            }
-            catch {
-                $errors.Add("choco ($candidate): $($_.Exception.Message)")
-            }
-        }
-    }
-
-    $pythonCommand = Get-PythonCommand
-    if (-not $pythonCommand) {
-        try {
-            Install-Package -Package @{ Name = "Python"; Winget = "Python.Python.3.13"; Scoop = "python"; Choco = "python" } -Manager $Manager
-        }
-        catch {
-            $errors.Add("Python bootstrap failed: $($_.Exception.Message)")
-        }
-        $pythonCommand = Get-PythonCommand
-    }
-
-    if ($pythonCommand) {
-        try {
-            & $pythonCommand -m pip install --user --upgrade trash-cli
-            if ($LASTEXITCODE -ne 0) {
-                throw "pip exited with code $LASTEXITCODE."
-            }
-
-            $userBaseOutput = & $pythonCommand -m site --user-base
-            if ($LASTEXITCODE -eq 0 -and -not [string]::IsNullOrWhiteSpace($userBaseOutput)) {
-                $scriptsPath = Join-Path $userBaseOutput.Trim() "Scripts"
-                if (Test-Path -LiteralPath $scriptsPath -and (($env:Path -split ";") -notcontains $scriptsPath)) {
-                    $env:Path = "$scriptsPath;$env:Path"
-                }
-            }
-
-            if ((Test-CommandAvailable -Name "trash") -or (Test-CommandAvailable -Name "trash-put")) {
-                return
-            }
-
-            throw "trash-cli installed but trash command was not found in PATH for this session."
-        }
-        catch {
-            $errors.Add("pip (trash-cli): $($_.Exception.Message)")
-        }
-    }
-
-    if ($errors.Count -eq 0) {
-        throw "Failed to install trash-cli."
-    }
-
-    throw "Failed to install trash-cli.`n$($errors -join "`n")"
-}
-
 function Copy-ConfigFile {
     param(
         [Parameter(Mandatory = $true)]
@@ -395,27 +312,22 @@ $packages = @(
 foreach ($package in $packages) {
     Install-Package -Package $package -Manager $selectedManager
 }
-Install-TrashCli -Manager $selectedManager
 
-$home = [Environment]::GetFolderPath("UserProfile")
 $documents = [Environment]::GetFolderPath("MyDocuments")
 $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
 
 $copyMap = @(
-    @{ Source = "git-bash\.bashrc"; Destination = (Join-Path $home ".bashrc") },
-    @{ Source = "git-bash\.bash_profile"; Destination = (Join-Path $home ".bash_profile") },
-    @{ Source = "starship\starship.toml"; Destination = (Join-Path $home ".config\starship.toml") },
+    @{ Source = "git-bash\.bashrc"; Destination = (Join-Path $HOME ".bashrc") },
+    @{ Source = "git-bash\.bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
+    @{ Source = "starship\starship.toml"; Destination = (Join-Path $HOME ".config\starship.toml") },
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "PowerShell\Microsoft.PowerShell_profile.ps1") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") },
-    @{ Source = "vim\.vimrc"; Destination = (Join-Path $home ".vimrc") },
-    @{ Source = "vim\.vimrc"; Destination = (Join-Path $home "_vimrc") }
+    @{ Source = "vim\.vimrc"; Destination = (Join-Path $HOME ".vimrc") },
 )
 
 foreach ($entry in $copyMap) {
     Copy-ConfigFile -SourceRelativePath $entry.Source -DestinationPath $entry.Destination
 }
-
-Install-OptionalNeovimConfig
 
 Write-Host "Installation completed. Restart your terminal to apply all changes."
