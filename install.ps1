@@ -323,7 +323,7 @@ $copyMap = @(
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "PowerShell\Microsoft.PowerShell_profile.ps1") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") },
-    @{ Source = "vim\.vimrc"; Destination = (Join-Path $HOME ".vimrc") },
+    @{ Source = "vim\.vimrc"; Destination = (Join-Path $HOME ".vimrc") }
 )
 
 foreach ($entry in $copyMap) {
