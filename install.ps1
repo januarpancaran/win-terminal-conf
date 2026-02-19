@@ -147,9 +147,16 @@ function Install-Package {
         "winget" {
             if (-not [string]::IsNullOrWhiteSpace($Package.Winget)) {
                 try {
-                    winget install --id $Package.Winget --exact --source winget --accept-source-agreements --accept-package-agreements --silent --disable-interactivity
-                    if ($LASTEXITCODE -ne 0) {
-                        throw "winget exited with code $LASTEXITCODE."
+                    $installed = winget list --id $Package.Winget --exact | Select-String $Package.Winget
+
+                    if (-not $installed) {
+                        winget install --id $Package.Winget --exact --source winget --accept-source-agreements --accept-package-agreements --silent --disable-interactivity
+                        if ($LASTEXITCODE -ne 0) {
+                            throw "winget exited with code $LASTEXITCODE."
+                        }
+                    }
+                    else {
+                        Write-Host "$($Package.Name) already installed. Skipping."
                     }
                     return
                 }
@@ -312,6 +319,8 @@ $packages = @(
 foreach ($package in $packages) {
     Install-Package -Package $package -Manager $selectedManager
 }
+
+Install-OptionalNeovimConfig
 
 $documents = [Environment]::GetFolderPath("MyDocuments")
 $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
