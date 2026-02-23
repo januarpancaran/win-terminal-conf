@@ -202,18 +202,6 @@ function Install-Package {
     throw "Failed to install $($Package.Name).`n$($errors -join "`n")"
 }
 
-function Get-PythonCommand {
-    if (Test-CommandAvailable -Name "python") {
-        return "python"
-    }
-
-    if (Test-CommandAvailable -Name "py") {
-        return "py"
-    }
-
-    return $null
-}
-
 function Copy-ConfigFile {
     param(
         [Parameter(Mandatory = $true)]
@@ -310,6 +298,7 @@ $packages = @(
     @{ Name = "Git"; Winget = "Git.Git"; Scoop = "git"; Choco = "git" },
     @{ Name = "Neovim"; Winget = "Neovim.Neovim"; Scoop = "neovim"; Choco = "neovim" },
     @{ Name = "Starship"; Winget = "Starship.Starship"; Scoop = "starship"; Choco = "starship" },
+    @{ Name = "wezterm"; Winget = "wez.wezterm"; Scoop = "wezterm"; Choco = "wezterm" },
     @{ Name = "zoxide"; Winget = "ajeetdsouza.zoxide"; Scoop = "zoxide"; Choco = "zoxide" },
     @{ Name = "fzf"; Winget = "junegunn.fzf"; Scoop = "fzf"; Choco = "fzf" },
     @{ Name = "bat"; Winget = "sharkdp.bat"; Scoop = "bat"; Choco = "bat" },
@@ -329,6 +318,7 @@ $copyMap = @(
     @{ Source = "git-bash\.bashrc"; Destination = (Join-Path $HOME ".bashrc") },
     @{ Source = "git-bash\.bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
     @{ Source = "starship\starship.toml"; Destination = (Join-Path $HOME ".config\starship.toml") },
+    @{ Source = "wezterm\wezterm.lua"; Destination = (Join-Path $HOME ".config\wezterm\wezterm.lua") },
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "PowerShell\Microsoft.PowerShell_profile.ps1") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") },
