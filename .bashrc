@@ -20,6 +20,9 @@ fi
 # Aliases
 alias ls='ls -a --color=auto'
 alias ll='ls -la --color=auto'
+alias vi='nvim'
+alias vim='nvim'
+alias svim='sudo nvim'
 alias nfzf='nvim $(fzf -m --preview=bat --color=always {}")'
 alias cat='batcat'
 alias grep='grep --color=auto'
@@ -33,6 +36,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
+export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 
 # Autostarts
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

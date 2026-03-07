@@ -59,6 +59,9 @@ fi
 # Aliases
 alias ls='ls -a --color=yes'
 alias ll='ls -l --color=yes'
+alias vi='nvim'
+alias vim='nvim'
+alias svim='sudo nvim'
 alias nfzf='nvim $(fzf -m --preview="bat --color=always {}")'
 alias cat='batcat'
 alias grep='grep --color=yes'
@@ -72,6 +75,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
+export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
