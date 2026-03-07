@@ -130,11 +130,31 @@ change_shell() {
 }
 
 install_tmux_tpm() {
-  TPM_DIR="$HOME/.config/tmux/plugins/tpm"
+  setup_config_dir
+
+  TPM_DIR="${CONF_DIR}/tmux/plugins/tpm"
   mkdir -p "$(dirname "$TPM_DIR")"
 
   if [ ! -d "$TPM_DIR" ]; then
     git clone https://github.com/tmux-plugins/tpm "$TPM_DIR"
+  fi
+}
+
+install_neovim_config() {
+  read -p "Install optional Neovim config? [y/N] " nvim_choice
+
+  if [[ "$nvim_choice" =~ ^[Yy]$ ]]; then
+    install_neovim
+
+    setup_config_dir
+
+    NVIM_DIR="${CONF_DIR}/nvim"
+
+    if [ -d "$NVIM_DIR" ]; then
+      mv -v "$NVIM_DIR" "${NVIM_DIR}.bak"
+    fi
+
+    git clone https://github.com/januarpancaran/neovim-config.git "$NVIM_DIR"
   fi
 }
 
@@ -144,5 +164,6 @@ copy_configs
 copy_home_configs
 change_shell
 install_tmux_tpm
+install_neovim_config
 
 echo "Installation finished!"

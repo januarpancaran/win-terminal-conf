@@ -20,6 +20,7 @@ APPS=(
   git
   htop
   ripgrep
+  tar
   tmux
   trash-cli
   tree
@@ -38,6 +39,7 @@ PROGRAMMING_PACKAGES=(
   dotnet-sdk-10.0
   golang
   jq
+  libxml2-utils
   lua5.4
   mysql-server
   openjdk-25-jdk
@@ -58,6 +60,20 @@ install_fzf() {
 
     git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
     "${FZF_DIR}/install"
+  fi
+}
+
+install_neovim() {
+  if ! cmd_exists nvim; then
+    local pkg_name="nvim-linux-x86_64"
+    set +e
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/${pkg_name}.tar.gz
+    set -e
+
+    "$SUDO_CMD" rm -rf "/opt/${pkg_name}"
+    "$SUDO_CMD" tar -C /opt -xzf "${pkg_name}.tar.gz"
+
+    rm -f "${pkg_name}.tar.gz"
   fi
 }
 
