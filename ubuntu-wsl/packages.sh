@@ -61,7 +61,9 @@ install_fzf() {
 
 install_bun() {
   if ! cmd_exists bun; then
+    set +e
     curl -fsSL https://bun.sh/install | bash
+    set -e
   fi
 }
 
@@ -79,7 +81,9 @@ install_fastfetch() {
 
 install_starship() {
   if ! cmd_exists starship; then
+    set +e
     curl -sS https://starship.rs/install.sh | sh
+    set -e
   fi
 }
 
@@ -101,13 +105,17 @@ install_github_cli() {
 
 install_copilot_cli() {
   if ! cmd_exists copilot; then
+    set +e
     curl -fsSL https://gh.io/copilot-install | bash
+    set -e
   fi
 }
 
 install_opencode() {
   if ! cmd_exists opencode; then
+    set +e
     curl -fsSL https://opencode.ai/install | bash
+    set -e
   fi
 }
 
