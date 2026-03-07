@@ -163,8 +163,17 @@ install_neovim_config() {
   fi
 }
 
+install_sqlserver() {
+  read -p "Install SQL Server? [y/N] " sqlserver_choice
+
+  if [[ "$sqlserver_choice" =~ ^[Yy]$ ]]; then
+    setup_sqlserver
+  fi
+}
+
 install_pkg
 setup_docker
+install_sqlserver
 copy_configs
 copy_home_configs
 change_shell

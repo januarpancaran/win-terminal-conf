@@ -19,6 +19,7 @@ APPS=(
   build-essential
   curl
   git
+  gpg
   htop
   libgmp-dev
   libssl-dev
@@ -192,4 +193,27 @@ setup_docker() {
   "$SUDO_CMD" systemctl enable --now docker
 
   "$SUDO_CMD" usermod -aG docker "$(whoami)"
+}
+
+setup_sqlserver() {
+  if ! cmd_exists sqlcmd; then
+    set +e
+    curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | "$SUDO_CMD" gpg --dearmor -o /usr/share/keyrings/microsoft-prod.gpg
+    curl -fsSL https://packages.microsoft.com/config/ubuntu/24.04/mssql-server-2025.list | "$SUDO_CMD" tee /etc/apt/sources.list.d/mssql-server-2025.list
+    set -e
+
+    "$SUDO_CMD" apt update
+    "$SUDO_CMD" apt install -y mssql-server
+    "$SUDO_CMD" /opt/mssql/bin/mssql-conf setup
+
+    set +e
+    curl -sSL -O https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb
+    set -e
+
+    "$SUDO_CMD" dpkg -i packages-microsoft-prod.deb
+    rm -f packages-microsoft-prod.deb
+
+    "$SUDO_CMD" apt update
+    "$SUDO_CMD" apt install -y mssql-tools18 unixodbc-dev
+  fi
 }
