@@ -47,6 +47,7 @@ PROGRAMMING_PACKAGES=(
   postgresql
   python3
   python3-pip
+  python3-venv
   sqlite3
 )
 
