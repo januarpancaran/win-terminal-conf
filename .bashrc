@@ -38,3 +38,10 @@ export PATH="$HOME/.opencode/bin:$PATH"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+# fnm
+FNM_PATH="$HOME/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "`fnm env`"
+fi
