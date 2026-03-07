@@ -49,7 +49,7 @@ PROGRAMMING_PACKAGES=(
 )
 
 install_fzf() {
-  if ! command -v fzf; then
+  if ! cmd_exists fzf; then
     FZF_DIR="$HOME/.fzf"
 
     if [ -d "$FZF_DIR" ]; then
