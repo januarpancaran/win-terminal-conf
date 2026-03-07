@@ -16,10 +16,15 @@ fi
 
 APPS=(
   bat
+  build-essential
   curl
   git
   htop
+  libgmp-dev
+  libssl-dev
+  libyaml-dev
   ripgrep
+  rustc
   tar
   tmux
   trash-cli
@@ -30,6 +35,7 @@ APPS=(
   wget
   wl-clipboard
   zip
+  zlib1g-dev
   zoxide
   zsh
 )
@@ -97,6 +103,23 @@ install_fnm() {
     eval "$("$FNM_PATH/fnm" env --shell bash)"
     "$FNM_PATH/fnm" install 24
     "$FNM_PATH/fnm" default 24
+  fi
+}
+
+install_rails() {
+  if ! cmd_exists mise; then
+    set +e
+    curl https://mise.run | sh
+    set -e
+  fi
+
+  if cmd_exists mise && ! cmd_exists ruby; then
+    mise settings ruby.compile=false
+    mise use -g ruby@3
+
+    eval "$(mise activate bash)"
+
+    gem install rails
   fi
 }
 

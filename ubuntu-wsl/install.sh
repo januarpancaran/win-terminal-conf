@@ -36,6 +36,11 @@ install_pkg() {
       install_bun
     )
 
+    echo "Installing Rails..."
+    (
+      install_rails
+    )
+
     echo "Installing GitHub CLI..."
     (
       install_github_cli
