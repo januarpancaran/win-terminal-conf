@@ -20,17 +20,20 @@ fi
 # Aliases
 alias ls='ls -a --color=auto'
 alias ll='ls -la --color=auto'
-alias vi='nvim'
-alias vim='nvim'
 alias nfzf='nvim $(fzf -m --preview=bat --color=always {}")'
-alias cat=bat
+alias cat='batcat'
 alias grep='grep --color=auto'
 alias rm='trash'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+export PATH="$PATH:$HOME/go/bin"
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
 # Autostarts
-eval "$(fzf --bash)"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
