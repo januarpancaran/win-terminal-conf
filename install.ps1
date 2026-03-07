@@ -315,14 +315,14 @@ $documents = [Environment]::GetFolderPath("MyDocuments")
 $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
 
 $copyMap = @(
-    @{ Source = "git-bash\.bashrc"; Destination = (Join-Path $HOME ".bashrc") },
-    @{ Source = "git-bash\.bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
+    @{ Source = ".bashrc"; Destination = (Join-Path $HOME ".bashrc") },
+    @{ Source = ".bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
     @{ Source = "starship\starship.toml"; Destination = (Join-Path $HOME ".config\starship.toml") },
     @{ Source = "wezterm\wezterm.lua"; Destination = (Join-Path $HOME ".config\wezterm\wezterm.lua") },
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "PowerShell\Microsoft.PowerShell_profile.ps1") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") },
-    @{ Source = "vim\.vimrc"; Destination = (Join-Path $HOME ".vimrc") }
+    @{ Source = ".vimrc"; Destination = (Join-Path $HOME ".vimrc") }
 )
 
 foreach ($entry in $copyMap) {
