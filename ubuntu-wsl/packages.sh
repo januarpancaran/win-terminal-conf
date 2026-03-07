@@ -39,11 +39,14 @@ PROGRAMMING_PACKAGES=(
   golang
   jq
   lua5.4
+  mysql-server
   nodejs
   openjdk-25-jdk
   php
+  postgresql
   python3
   python3-pip
+  sqlite3
 )
 
 install_fzf() {
