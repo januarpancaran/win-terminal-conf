@@ -4,7 +4,11 @@ set -Eeuo pipefail
 
 SUDO_CMD=""
 
-if command -v doas > /dev/null 2>&1; then
+cmd_exists() {
+  command -v "$1" > /dev/null 2>&1
+}
+
+if cmd_exists doas; then
   SUDO_CMD="doas"
 else
   SUDO_CMD="sudo"
@@ -43,54 +47,68 @@ PROGRAMMING_PACKAGES=(
 )
 
 install_fzf() {
-  FZF_DIR="$HOME/.fzf"
+  if ! command -v fzf; then
+    FZF_DIR="$HOME/.fzf"
 
-  if [ -d "$FZF_DIR" ]; then
-    mv -v "$FZF_DIR" "$FZF_DIR".bak
+    if [ -d "$FZF_DIR" ]; then
+      mv -v "$FZF_DIR" "$FZF_DIR".bak
+    fi
+
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
+    "${FZF_DIR}/install"
   fi
-
-  git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
-  "${FZF_DIR}/install"
 }
 
 install_bun() {
-  curl -fsSL https://bun.sh/install | bash
+  if ! cmd_exists bun; then
+    curl -fsSL https://bun.sh/install | bash
+  fi
 }
 
 install_fastfetch() {
-  local pkg_name="fastfetch-linux-amd64.deb"
+  if ! cmd_exists fastfetch; then
+    local pkg_name="fastfetch-linux-amd64.deb"
 
-  curl -LO https://github.com/fastfetch-cli/fastfetch/releases/latest/download/${pkg_name}
+    curl -LO https://github.com/fastfetch-cli/fastfetch/releases/latest/download/${pkg_name}
 
-  "$SUDO_CMD" apt install -y "./${pkg_name}"
+    "$SUDO_CMD" apt install -y "./${pkg_name}"
 
-  rm -f "${pkg_name}"
+    rm -f "${pkg_name}"
+  fi
 }
 
 install_starship() {
-  curl -sS https://starship.rs/install.sh | sh
+  if ! cmd_exists starship; then
+    curl -sS https://starship.rs/install.sh | sh
+  fi
 }
 
 install_github_cli() {
-  local latest_ver
+  if ! cmd_exists gh; then
+    local latest_ver
 
-  latest_ver=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | grep tag_name | cut -d '"' -f4 | sed 's/v//')
+    latest_ver=$(curl -s https://api.github.com/repos/cli/cli/releases/latest | grep tag_name | cut -d '"' -f4 | sed 's/v//')
 
-  local pkg_name="gh_${latest_ver}_linux_amd64.deb"
+    local pkg_name="gh_${latest_ver}_linux_amd64.deb"
 
-  curl -LO https://github.com/cli/cli/releases/download/v${latest_ver}/${pkg_name}
+    curl -LO https://github.com/cli/cli/releases/download/v${latest_ver}/${pkg_name}
 
-  "$SUDO_CMD" apt install -y "./${pkg_name}"
+    "$SUDO_CMD" apt install -y "./${pkg_name}"
 
-  rm -f "${pkg_name}"
+    rm -f "${pkg_name}"
+  fi
 }
 
 install_copilot_cli() {
-  curl -fsSL https://gh.io/copilot-install | bash
+  if ! cmd_exists copilot; then
+    curl -fsSL https://gh.io/copilot-install | bash
+  fi
 }
 
 install_opencode() {
-  curl -fsSL https://opencode.ai/install | bash
+  if ! cmd_exists opencode; then
+    curl -fsSL https://opencode.ai/install | bash
+  fi
 }
 
 setup_docker() {
