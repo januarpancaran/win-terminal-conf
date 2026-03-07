@@ -14,7 +14,7 @@ bind '"\C-n": history-search-forward'
 
 # Fastfetch
 if command -v fastfetch &>/dev/null; then
-  fastfetch
+    fastfetch
 fi
 
 # Aliases
@@ -46,6 +46,9 @@ eval "$(zoxide init bash)"
 # fnm
 FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
+    export PATH="$FNM_PATH:$PATH"
+    eval "$(fnm env)"
 fi
+
+# mise
+eval "$(mise activate bash)"
