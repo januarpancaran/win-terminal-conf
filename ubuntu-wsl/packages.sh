@@ -40,7 +40,6 @@ PROGRAMMING_PACKAGES=(
   jq
   lua5.4
   mysql-server
-  nodejs
   openjdk-25-jdk
   php
   postgresql
@@ -59,6 +58,28 @@ install_fzf() {
 
     git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
     "${FZF_DIR}/install"
+  fi
+}
+
+install_fnm() {
+  if ! cmd_exists fnm; then
+    set +e
+    curl -fsSL https://fnm.vercel.app/install | bash
+    set -e
+
+    export FNM_PATH="$HOME/.local/share/fnm"
+    if [ ! -x "$FNM_PATH/fnm" ]; then
+      FNM_PATH="$HOME/.fnm"
+    fi
+
+    if [ ! -x "$FNM_PATH/fnm" ]; then
+      return 1
+    fi
+
+    export PATH="$FNM_PATH:$PATH"
+    eval "$("$FNM_PATH/fnm" env --shell bash)"
+    "$FNM_PATH/fnm" install 24
+    "$FNM_PATH/fnm" default 24
   fi
 }
 
