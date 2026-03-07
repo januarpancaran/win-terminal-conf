@@ -32,6 +32,7 @@ export PATH="$PATH:$HOME/go/bin"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # Autostarts
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
