@@ -53,3 +53,10 @@ nnoremap <C-l> <C-w>l
 
 " plugins
 filetype plugin indent on
+
+" for JetBrains IDEs with IdeaVim
+" set commentary
+
+" for Visual Studio with VsVim and Toggle Comment
+" nnoremap gcc :vsc Edit.ToggleComment<CR>
+" vnoremap gc :vsc Edit.ToggleComment<CR>
