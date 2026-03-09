@@ -35,7 +35,7 @@ endif
 set updatetime=50
 set termguicolors
 set guicursor=
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " keybindings
 nnoremap j jzz
