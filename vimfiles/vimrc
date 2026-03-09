@@ -26,7 +26,7 @@ set noswapfile
 set nobackup
 set undofile
 if has("win32") || has("win64")
-    set undodir=$USERPROFILE/.vim/undodir
+    set undodir=$USERPROFILE/vimfiles/undodir
 else
     set undodir=$HOME/.vim/undodir
 endif
@@ -50,3 +50,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" plugins
+filetype plugin indent on

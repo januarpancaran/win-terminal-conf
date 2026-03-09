@@ -220,7 +220,11 @@ function Copy-ConfigFile {
         New-Item -Path $destinationDir -ItemType Directory -Force | Out-Null
     }
 
-    Copy-Item -LiteralPath $sourcePath -Destination $DestinationPath -Force
+    if ((Test-Path -LiteralPath $DestinationPath) -and (Get-Item -LiteralPath $sourcePath).PSIsContainer) {
+        Remove-Item -LiteralPath $DestinationPath -Recurse -Force
+    }
+
+    Copy-Item -LiteralPath $sourcePath -Destination $DestinationPath -Recurse -Force
     Write-Host "Copied $SourceRelativePath -> $DestinationPath"
 }
 
@@ -317,12 +321,12 @@ $localAppData = [Environment]::GetFolderPath("LocalApplicationData")
 $copyMap = @(
     @{ Source = ".bashrc"; Destination = (Join-Path $HOME ".bashrc") },
     @{ Source = ".bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
+    @{ Source = "vimfiles"; Destination = (Join-Path $HOME "vimfiles") },
     @{ Source = "starship\starship.toml"; Destination = (Join-Path $HOME ".config\starship.toml") },
     @{ Source = "wezterm\wezterm.lua"; Destination = (Join-Path $HOME ".config\wezterm\wezterm.lua") },
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },
     @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "PowerShell\Microsoft.PowerShell_profile.ps1") },
-    @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") },
-    @{ Source = ".vimrc"; Destination = (Join-Path $HOME ".vimrc") }
+    @{ Source = "powershell\Microsoft.PowerShell_profile.ps1"; Destination = (Join-Path $documents "WindowsPowerShell\Microsoft.PowerShell_profile.ps1") }
 )
 
 foreach ($entry in $copyMap) {
