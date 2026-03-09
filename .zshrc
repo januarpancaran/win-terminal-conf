@@ -77,6 +77,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 export PATH="/opt/mssql-tools18/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 
 # Fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
