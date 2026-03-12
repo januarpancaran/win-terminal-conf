@@ -322,6 +322,8 @@ $copyMap = @(
     @{ Source = ".bashrc"; Destination = (Join-Path $HOME ".bashrc") },
     @{ Source = ".bash_profile"; Destination = (Join-Path $HOME ".bash_profile") },
     @{ Source = "vimfiles"; Destination = (Join-Path $HOME "vimfiles") },
+    @{ Source = ".ideavimrc"; Destination = (Join-Path $HOME ".ideavimrc") },
+    @{ Source = ".vsvimrc"; Destination = (Join-Path $HOME ".vsvimrc") },
     @{ Source = "starship\starship.toml"; Destination = (Join-Path $HOME ".config\starship.toml") },
     @{ Source = "wezterm\wezterm.lua"; Destination = (Join-Path $HOME ".config\wezterm\wezterm.lua") },
     @{ Source = "fastfetch\config.jsonc"; Destination = (Join-Path $localAppData "fastfetch\config.jsonc") },

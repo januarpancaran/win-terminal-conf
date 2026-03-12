@@ -109,7 +109,6 @@ copy_home_configs() {
   echo "Copying home config files..."
 
   HOME_FILES=(
-    .vimrc
     .bashrc
     .bash_profile
     .zshrc
