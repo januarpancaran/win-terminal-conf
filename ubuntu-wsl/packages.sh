@@ -120,6 +120,9 @@ install_rails() {
 
     eval "$(mise activate bash)"
 
+    export GEM_HOME="$HOME/.gem"
+    export PATH="$GEM_HOME/bin:$PATH"
+
     gem install rails
   fi
 }

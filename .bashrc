@@ -39,6 +39,8 @@ export PATH="$HOME/.opencode/bin:$PATH"
 export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 export PATH="/opt/mssql-tools18/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
+export GEM_HOME="$HOME/.gem"
+export PATH="$GEM_HOME/bin:$PATH"
 
 # Autostarts
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
