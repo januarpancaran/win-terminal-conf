@@ -301,6 +301,8 @@ Write-Host "Using package manager: $selectedManager"
 $packages = @(
     @{ Name = "Git"; Winget = "Git.Git"; Scoop = "git"; Choco = "git" },
     @{ Name = "Neovim"; Winget = "Neovim.Neovim"; Scoop = "neovim"; Choco = "neovim" },
+    @{ Name = "ripgrep"; Winget = "BurntSushi.ripgrep.MSVC"; },
+    @{ Name = "tree-sitter"; Winget = "tree-sitter.tree-sitter-cli"; },
     @{ Name = "Starship"; Winget = "Starship.Starship"; Scoop = "starship"; Choco = "starship" },
     @{ Name = "zoxide"; Winget = "ajeetdsouza.zoxide"; Scoop = "zoxide"; Choco = "zoxide" },
     @{ Name = "fzf"; Winget = "junegunn.fzf"; Scoop = "fzf"; Choco = "fzf" },
