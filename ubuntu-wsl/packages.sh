@@ -73,15 +73,9 @@ install_fzf() {
 
 install_neovim() {
   if ! cmd_exists nvim; then
-    local pkg_name="nvim-linux-x86_64"
-    set +e
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/${pkg_name}.tar.gz
-    set -e
-
-    "$SUDO_CMD" rm -rf "/opt/${pkg_name}"
-    "$SUDO_CMD" tar -C /opt -xzf "${pkg_name}.tar.gz"
-
-    rm -f "${pkg_name}.tar.gz"
+    "$SUDO_CMD" add-apt-repository ppa:neovim-ppa/unstable
+    "$SUDO_CMD" apt update
+    "$SUDO_CMD" apt install -y neovim
   fi
 }
 
