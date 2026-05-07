@@ -26,6 +26,11 @@ install_pkg() {
     echo "Installing optional programming packages..."
     install_cmd "${PROGRAMMING_PACKAGES[@]}"
 
+    echo "Setting up Npm..."
+    (
+      setup_npm
+    )
+
     echo "Installing Bun..."
     (
       install_bun

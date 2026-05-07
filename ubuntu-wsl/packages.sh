@@ -73,6 +73,20 @@ install_neovim() {
   fi
 }
 
+setup_npm() {
+  local npm_prefix="$HOME/.local/npm-global"
+
+  if ! cmd_exists npm; then
+    echo "npm not found, skipping npm setup"
+    return 0
+  fi
+
+  mkdir -p "$npm_prefix"
+  npm config set prefix "$npm_prefix"
+
+  echo "Configured npm global prefix at $npm_prefix"
+}
+
 install_bun() {
   if ! cmd_exists bun; then
     set +e
