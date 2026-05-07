@@ -75,27 +75,12 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.opencode/bin:$PATH"
-export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
-export PATH="/opt/mssql-tools18/bin:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
-export GEM_HOME="$HOME/.gem"
+export GEM_HOME="$HOME/.local/share/gem/ruby/3.3.0"
 export PATH="$GEM_HOME/bin:$PATH"
-
-# Fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Zoxide
 eval "$(zoxide init zsh)"
 
 # Starship
 eval "$(starship init zsh)"
-
-# fnm
-FNM_PATH="$HOME/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="$FNM_PATH:$PATH"
-  eval "`fnm env`"
-fi
-
-# mise
-eval "$(mise activate zsh)"

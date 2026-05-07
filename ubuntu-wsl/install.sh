@@ -26,19 +26,9 @@ install_pkg() {
     echo "Installing optional programming packages..."
     install_cmd "${PROGRAMMING_PACKAGES[@]}"
 
-    echo "Installing Fnm..."
-    (
-      install_fnm
-    )
-
     echo "Installing Bun..."
     (
       install_bun
-    )
-
-    echo "Installing Rails..."
-    (
-      install_rails
     )
 
     echo "Installing GitHub CLI..."
@@ -56,21 +46,6 @@ install_pkg() {
       install_opencode
     )
   fi
-
-  echo "Installing Fzf..."
-  (
-    install_fzf
-  )
-
-  echo "Installing Fastfetch..."
-  (
-    install_fastfetch
-  )
-
-  echo "Installing Starship..."
-  (
-    install_starship
-  )
 }
 
 setup_config_dir() {

@@ -18,14 +18,13 @@ APPS=(
   bat
   build-essential
   curl
+  fastfetch
+  fzf
   git
   gpg
   htop
-  libgmp-dev
-  libssl-dev
-  libyaml-dev
   ripgrep
-  rustc
+  starship
   tar
   tmux
   trash-cli
@@ -43,33 +42,27 @@ APPS=(
 
 PROGRAMMING_PACKAGES=(
   composer
-  dotnet-sdk-10.0
+  dotnet10
   golang
   jq
   libxml2-utils
-  lua5.4
+  libgmp-dev
+  libssl-dev
+  libyaml-dev
+  lua5.5
+  liblua5.5-dev
   mysql-server
+  nodejs
   openjdk-25-jdk
   php
   postgresql
   python3
   python3-pip
   python3-venv
+  ruby-full
+  rustc
   sqlite3
 )
-
-install_fzf() {
-  if ! cmd_exists fzf; then
-    FZF_DIR="$HOME/.fzf"
-
-    if [ -d "$FZF_DIR" ]; then
-      mv -v "$FZF_DIR" "$FZF_DIR".bak
-    fi
-
-    git clone --depth 1 https://github.com/junegunn/fzf.git "$FZF_DIR"
-    "${FZF_DIR}/install"
-  fi
-}
 
 install_neovim() {
   if ! cmd_exists nvim; then
@@ -79,72 +72,10 @@ install_neovim() {
   fi
 }
 
-install_fnm() {
-  if ! cmd_exists fnm; then
-    set +e
-    curl -fsSL https://fnm.vercel.app/install | bash
-    set -e
-
-    export FNM_PATH="$HOME/.local/share/fnm"
-    if [ ! -x "$FNM_PATH/fnm" ]; then
-      FNM_PATH="$HOME/.fnm"
-    fi
-
-    if [ ! -x "$FNM_PATH/fnm" ]; then
-      return 1
-    fi
-
-    export PATH="$FNM_PATH:$PATH"
-    eval "$("$FNM_PATH/fnm" env --shell bash)"
-    "$FNM_PATH/fnm" install 24
-    "$FNM_PATH/fnm" default 24
-  fi
-}
-
-install_rails() {
-  if ! cmd_exists mise; then
-    set +e
-    curl https://mise.run | sh
-    set -e
-  fi
-
-  if cmd_exists mise && ! cmd_exists ruby; then
-    mise settings ruby.compile=false
-    mise use -g ruby@3
-
-    eval "$(mise activate bash)"
-
-    export GEM_HOME="$HOME/.gem"
-    export PATH="$GEM_HOME/bin:$PATH"
-
-    gem install rails
-  fi
-}
-
 install_bun() {
   if ! cmd_exists bun; then
     set +e
     curl -fsSL https://bun.sh/install | bash
-    set -e
-  fi
-}
-
-install_fastfetch() {
-  if ! cmd_exists fastfetch; then
-    local pkg_name="fastfetch-linux-amd64.deb"
-
-    curl -LO https://github.com/fastfetch-cli/fastfetch/releases/latest/download/${pkg_name}
-
-    "$SUDO_CMD" apt install -y "./${pkg_name}"
-
-    rm -f "${pkg_name}"
-  fi
-}
-
-install_starship() {
-  if ! cmd_exists starship; then
-    set +e
-    curl -sS https://starship.rs/install.sh | sh
     set -e
   fi
 }
