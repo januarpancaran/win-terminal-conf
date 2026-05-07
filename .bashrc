@@ -40,6 +40,7 @@ export PATH="$HOME/.dotnet/tools:$PATH"
 export GEM_HOME="$HOME/.local/share/gem/ruby/3.3.0"
 export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$HOME/.local/npm-global/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # Autostarts
 eval "$(starship init bash)"

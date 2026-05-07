@@ -41,6 +41,7 @@ APPS=(
 )
 
 PROGRAMMING_PACKAGES=(
+  cargo
   composer
   dotnet10
   golang
