@@ -43,5 +43,6 @@ export PATH="$HOME/.local/npm-global/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 # Autostarts
+eval "$(fzf --bash)"
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"

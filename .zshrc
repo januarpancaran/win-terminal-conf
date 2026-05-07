@@ -81,6 +81,9 @@ export PATH="$GEM_HOME/bin:$PATH"
 export PATH="$HOME/.local/npm-global/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# Fzf
+source <(fzf --zsh)
+
 # Zoxide
 eval "$(zoxide init zsh)"
 
