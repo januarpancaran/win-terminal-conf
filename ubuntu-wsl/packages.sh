@@ -53,6 +53,7 @@ PROGRAMMING_PACKAGES=(
   liblua5.5-dev
   mysql-server
   nodejs
+  npm
   openjdk-25-jdk
   php
   postgresql
